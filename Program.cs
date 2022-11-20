@@ -1,2 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using static TaskDependencyManagement.NewProgram;
+
+if (args.Length > 0)
+    RunCommand(args);
+else
+    RunInteractiveMode();

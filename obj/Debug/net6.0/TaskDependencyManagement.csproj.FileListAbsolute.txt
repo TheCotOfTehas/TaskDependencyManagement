@@ -1,0 +1,15 @@
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\TaskDependencyManagement.exe
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\TaskDependencyManagement.deps.json
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\TaskDependencyManagement.runtimeconfig.json
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\TaskDependencyManagement.dll
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\TaskDependencyManagement.pdb
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.csproj.AssemblyReference.cache
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.AssemblyInfoInputs.cache
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.AssemblyInfo.cs
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.csproj.CoreCompileInputs.cache
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.dll
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\refint\TaskDependencyManagement.dll
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.pdb
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.genruntimeconfig.cache
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\ref\TaskDependencyManagement.dll
