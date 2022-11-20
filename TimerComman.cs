@@ -1,10 +1,21 @@
-﻿internal class TimerComman
+﻿using System.IO;
+using TaskDependencyManagement;
+
+public class TimerCommand : ConsoleCommand
 {
-    internal static void Execute(int time, TextWriter textReader)
+    public TimerCommand() : base("timer", "timer <ms>      # starts timer for <ms> milliseconds")
+    { }
+
+    public override void Execute(string[] args, TextWriter writer)
     {
-        var timeout = TimeSpan.FromMilliseconds(time);
-        Console.WriteLine("Waiting for " + timeout);
+        if (args.Length != 2)
+        {
+            writer.WriteLine("Error!");
+            return;
+        }
+        var timeout = TimeSpan.FromMilliseconds(int.Parse(args[1]));
+        writer.WriteLine("Waiting for " + timeout);
         Thread.Sleep(timeout);
-        textReader.WriteLine("Done!");
+        writer.WriteLine("Done!");
     }
 }

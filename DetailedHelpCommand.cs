@@ -1,24 +1,22 @@
-﻿internal class DetailedHelpCommand
+﻿using System.IO;
+using TaskDependencyManagement;
+
+public class DetailedHelpCommand : ConsoleCommand
 {
-    internal static void Execute(string commandName, TextWriter textReader)
+    private readonly Func<string, ConsoleCommand> findCommand;
+
+    public DetailedHelpCommand(Func<string, ConsoleCommand> findCommand)
+        : base("help", "help <command>      # prints help for <command>")
     {
-        textReader.WriteLine("");
-        if (commandName == "timer")
-            textReader.WriteLine("timer <ms> — starts timer for <ms> milliseconds");
-        else if (commandName == "printtime")
-            textReader.WriteLine("printtime — prints current time");
-        else if (commandName == "h")
-            textReader.WriteLine("h — prints available commands list");
-        else if (commandName == "help")
-            textReader.WriteLine("help <command> — prints help for <command>");
-        else
-        {
-            ShowUnknownCommandError(commandName, textReader);
-        }
+        this.findCommand = findCommand;
     }
 
-    internal static void ShowUnknownCommandError(string command, TextWriter textReader)
+    public override void Execute(string[] args, TextWriter writer)
     {
-        textReader.WriteLine("Sorry. Unknown command {0}", command);
+        var cmd = findCommand(args[1]);
+        if (cmd == null)
+            writer.WriteLine("Sorry. Unknown command {0}", args[1]);
+        else
+            writer.WriteLine(cmd.Help);
     }
 }

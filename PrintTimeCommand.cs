@@ -1,7 +1,14 @@
-﻿internal class PrintTimeCommand
+﻿using System.IO;
+using TaskDependencyManagement;
+
+public class PrintTimeCommand : ConsoleCommand
 {
-    internal static void Execute(TextWriter textReader)
+    public PrintTimeCommand()
+        : base("printtime", "printtime      # prints current time")
+    { }
+
+    public override void Execute(string[] args, TextWriter writer)
     {
-        textReader.WriteLine(DateTime.Now);
+        writer.WriteLine(DateTime.Now);
     }
 }

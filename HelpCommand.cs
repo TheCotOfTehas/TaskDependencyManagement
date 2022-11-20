@@ -1,7 +1,21 @@
-﻿internal class HelpCommand
+﻿using System.IO;
+using TaskDependencyManagement;
+
+internal class HelpCommand : ConsoleCommand
 {
-    internal static void Execute(TextWriter textReader)
+    private readonly ICommandsExecutor executor;
+
+    //Также можно еще из конструктора получать делегат и использовать его для получения команд.
+    //private readonly Func<string[]> getAvailableCommands;
+
+    public HelpCommand(ICommandsExecutor executor)
+        : base("h", "h      # prints available commands list")
     {
-        textReader.WriteLine("Available commands: timer, printtime, help, h");
+        this.executor = executor;
+    }
+
+    public override void Execute(string[] args, TextWriter writer)
+    {
+        writer.WriteLine("Available commands: " + string.Join(", ", executor.GetAvailableCommandName()));
     }
 }

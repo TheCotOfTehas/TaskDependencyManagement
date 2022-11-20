@@ -1,22 +1,43 @@
-﻿internal class CommandsExecuter
+﻿using TaskDependencyManagement;
+
+public class CommandsExecutor : ICommandsExecutor
 {
-    internal static void RunCommand(string[] args)
+    private readonly TextWriter writer;
+    private readonly List<ConsoleCommand> commands = new List<ConsoleCommand>();
+
+    public CommandsExecutor(TextWriter writer)
     {
-        var writer = Console.Out;
-        var command = args[0];
-        if (command == "timer")
-            TimerComman.Execute(int.Parse(args[1]), writer);
-        else if (command == "printtime")
-            PrintTimeCommand.Execute(writer);
-        else if (command == "h")
-            HelpCommand.Execute(writer);
-        else if (command == "help")
-            DetailedHelpCommand.Execute(args[1], writer);
-        else ShowUnknownCommandError(args[0], writer);
+        this.writer = writer;
     }
 
-    internal static void ShowUnknownCommandError(string command, TextWriter textReader)
+    public void Register(ConsoleCommand command)
     {
-        textReader.WriteLine("Sorry. Unknown command {0}", command);
+        commands.Add(command);
+    }
+
+    public string[] GetAvailableCommandName()
+    {
+        return commands.Select(c => c.Name).ToArray();
+    }
+
+    public ConsoleCommand FindCommandByName(string name)
+    {
+        return commands.FirstOrDefault(c => string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public void Execute(string[] args)
+    {
+        if (args[0].Length == 0)
+        {
+            Console.WriteLine("Please specify <command> as the first command line argument");
+            return;
+        }
+
+        var commandName = args[0];
+        var cmd = FindCommandByName(commandName);
+        if (cmd == null)
+            writer.WriteLine("Sorry. Unknown command {0}", commandName);
+        else
+            cmd.Execute(args, writer);
     }
 }
