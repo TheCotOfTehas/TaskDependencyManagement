@@ -13,3 +13,5 @@ C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\refint\Tas
 C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.pdb
 C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.genruntimeconfig.cache
 C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\ref\TaskDependencyManagement.dll
+C:\Users\tsebr\source\repos\TaskDependencyManagement\bin\Debug\net6.0\Ninject.dll
+C:\Users\tsebr\source\repos\TaskDependencyManagement\obj\Debug\net6.0\TaskDependencyManagement.csproj.CopyComplete

@@ -1,6 +1,12 @@
-﻿using TaskDependencyManagement;
+﻿using Ninject;
+using TaskDependencyManagement;
 
 
+//ICommandsExecutor executor = CreateExecutor();
+//if (args.Length > 0)
+//    executor.Execute(args);
+//else
+//    RunInteractiveMode(executor);
 ICommandsExecutor executor = CreateExecutor();
 if (args.Length > 0)
     executor.Execute(args);
@@ -9,14 +15,16 @@ else
 
 static ICommandsExecutor CreateExecutor()
 {
-    var locator = new ServiceLocator();
-    locator.Register(Console.Out);
-    locator.Register<ConsoleCommand>(new PrintTimeCommand(locator));
-    locator.Register<ConsoleCommand>(new TimerCommand(locator));
-    locator.Register<ConsoleCommand>(new HelpCommand(locator));
-    locator.Register<ConsoleCommand>(new DetailedHelpCommand(locator));
-    locator.Register<ICommandsExecutor>(new CommandsExecutor(locator));
-    return locator.Get<ICommandsExecutor>();
+    var container = new StandardKernel();
+
+    // Регистрируем все имеющиеся реализации ConsoleCommand:
+    container.Bind<ConsoleCommand>().To<TimerCommand>();
+    container.Bind<ConsoleCommand>().To<PrintTimeCommand>();
+    //...
+
+    container.Bind<TextWriter>().ToConstant(Console.Out);
+    container.Bind<ICommandsExecutor>().To<CommandsExecutor>();
+    return container.Get<ICommandsExecutor>();
 }
 static void RunInteractiveMode(ICommandsExecutor executor)
 {
