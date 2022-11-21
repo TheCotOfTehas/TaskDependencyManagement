@@ -8,21 +8,20 @@ using TaskDependencyManagement;
 //else
 //    RunInteractiveMode(executor);
 ICommandsExecutor executor = CreateExecutor();
-if (args.Length > 0)
-    executor.Execute(args);
-else
-    RunInteractiveMode(executor);
+executor.Execute(args);
 
 static ICommandsExecutor CreateExecutor()
 {
     var container = new StandardKernel();
+    container.Bind<TextWriter>().ToConstant(Console.Out);
 
-    // Регистрируем все имеющиеся реализации ConsoleCommand:
+    // Этой команде для работы нужен CommandExecutor,
+    // а ему нужен список всех команд, в том числе этой.
+    // Нужно разорвать этот цикл.
+    container.Bind<ConsoleCommand>().To<HelpCommand>();
+
     container.Bind<ConsoleCommand>().To<TimerCommand>();
     container.Bind<ConsoleCommand>().To<PrintTimeCommand>();
-    //...
-
-    container.Bind<TextWriter>().ToConstant(Console.Out);
     container.Bind<ICommandsExecutor>().To<CommandsExecutor>();
     return container.Get<ICommandsExecutor>();
 }
