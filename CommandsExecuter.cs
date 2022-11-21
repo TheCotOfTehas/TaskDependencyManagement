@@ -2,12 +2,13 @@
 
 public class CommandsExecutor : ICommandsExecutor
 {
-    private readonly TextWriter writer;
     private readonly List<ConsoleCommand> commands = new List<ConsoleCommand>();
 
-    public CommandsExecutor(TextWriter writer)
+    public ServiceLocator Locator { get; }
+
+    public CommandsExecutor(ServiceLocator locator)
     {
-        this.writer = writer;
+        Locator = locator;
     }
 
     public void Register(ConsoleCommand command)
@@ -36,8 +37,8 @@ public class CommandsExecutor : ICommandsExecutor
         var commandName = args[0];
         var cmd = FindCommandByName(commandName);
         if (cmd == null)
-            writer.WriteLine("Sorry. Unknown command {0}", commandName);
+            Locator.Get<TextWriter>().WriteLine("Sorry. Unknown command {0}", commandName);
         else
-            cmd.Execute(args, writer);
+            cmd.Execute(args);
     }
 }

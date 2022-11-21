@@ -5,17 +5,20 @@ internal class HelpCommand : ConsoleCommand
 {
     private readonly ICommandsExecutor executor;
 
-    //Также можно еще из конструктора получать делегат и использовать его для получения команд.
-    //private readonly Func<string[]> getAvailableCommands;
-
     public HelpCommand(ICommandsExecutor executor)
         : base("h", "h      # prints available commands list")
     {
         this.executor = executor;
     }
 
-    public override void Execute(string[] args, TextWriter writer)
+    public HelpCommand(ServiceLocator locator)
+        : base("h", "h      # prints available commands list", locator)
     {
-        writer.WriteLine("Available commands: " + string.Join(", ", executor.GetAvailableCommandName()));
+        Locator = locator;
+    }
+
+    public override void Execute(string[] args)
+    {
+        Locator.Get<TextWriter>().WriteLine("Available commands: " + string.Join(", ", executor.GetAvailableCommandName()));
     }
 }

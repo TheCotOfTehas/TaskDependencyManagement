@@ -3,20 +3,22 @@ using TaskDependencyManagement;
 
 public class DetailedHelpCommand : ConsoleCommand
 {
-    private readonly Func<string, ConsoleCommand> findCommand;
+    public DetailedHelpCommand(IServiceLocation locator)
+        : base("help", "help <command>      # prints help for <command>", locator)
+    { }
 
-    public DetailedHelpCommand(Func<string, ConsoleCommand> findCommand)
-        : base("help", "help <command>      # prints help for <command>")
+    public override void Execute(string[] args)
     {
-        this.findCommand = findCommand;
-    }
-
-    public override void Execute(string[] args, TextWriter writer)
-    {
-        var cmd = findCommand(args[1]);
-        if (cmd == null)
-            writer.WriteLine("Sorry. Unknown command {0}", args[1]);
+        var commandName = args[0];
+        var command = Locator.Get<ICommandsExecutor>().FindCommandByName(commandName);
+        var writer = Locator.Get<TextWriter>();
+        if (command != null)
+        {
+            writer.WriteLine(command.Help);
+        }
         else
-            writer.WriteLine(cmd.Help);
+        {
+            writer.WriteLine("Not a command " + commandName);
+        }
     }
 }

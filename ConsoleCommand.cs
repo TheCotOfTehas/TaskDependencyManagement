@@ -8,14 +8,20 @@ namespace TaskDependencyManagement
 {
     public abstract class ConsoleCommand
     {
+        public ConsoleCommand(string name, string help, IServiceLocation locator) : this(name, help)
+        {
+            Locator = locator;
+        }
+
         protected ConsoleCommand(string name, string help)
         {
             Name = name;
             Help = help;
         }
-
         public string Name { get; }
         public string Help { get; }
-        public abstract void Execute(string[] args, TextWriter writer);
+        public IServiceLocation Locator { get; set; }
+
+        public abstract void Execute(string[] args);
     }
 }

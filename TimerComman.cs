@@ -6,16 +6,21 @@ public class TimerCommand : ConsoleCommand
     public TimerCommand() : base("timer", "timer <ms>      # starts timer for <ms> milliseconds")
     { }
 
-    public override void Execute(string[] args, TextWriter writer)
+    public TimerCommand(ServiceLocator locator) : base("timer", "timer <ms>      # starts timer for <ms> milliseconds", locator)
+    {
+        Locator = locator;
+    }
+
+    public override void Execute(string[] args)
     {
         if (args.Length != 2)
         {
-            writer.WriteLine("Error!");
+            Locator.Get<TextWriter>().WriteLine("Error!");
             return;
         }
         var timeout = TimeSpan.FromMilliseconds(int.Parse(args[1]));
-        writer.WriteLine("Waiting for " + timeout);
+        Locator.Get<TextWriter>().WriteLine("Waiting for " + timeout);
         Thread.Sleep(timeout);
-        writer.WriteLine("Done!");
+        Locator.Get<TextWriter>().WriteLine("Done!");
     }
 }

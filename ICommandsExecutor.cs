@@ -10,5 +10,6 @@ namespace TaskDependencyManagement
     {
         string[] GetAvailableCommandName();
         void Execute(string[] args);
+        public ConsoleCommand FindCommandByName(string commandName);
     }
 }
